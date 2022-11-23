@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.longd.api.ApiMapMapper">
+	
+	<select id="apimaplist" resultType="com.longd.map.MapVO" parameterType="com.longd.api.ApiMapVO">
+		SELECT *, 
+			(SELECT content FROM map_content WHERE map_no = a.map_no) AS content
+		FROM map as a;
+	</select>
+	
+</mapper>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.longd.map.MapMapper">
+	
+	<select id="list" resultType="com.longd.map.MapVO" parameterType="com.longd.map.MapVO">
+		SELECT *, 
+			(SELECT content FROM map_content WHERE map_no = a.map_no) AS content
+		FROM map as a
+		WHERE user_no = #{user_no}
+	</select>
+	
+	<select id="mapList" resultType="com.longd.map.MapVO" parameterType="com.longd.map.MapVO">
+		SELECT *, 
+			(SELECT content FROM map_content WHERE map_no = a.map_no) AS content
+		FROM map as a
+		ORDER BY creationtime DESC
+		LIMIT  ${startIdx},${pageRow};
+	</select>
+	
+	<select id="fileList" parameterType="int" resultType="com.longd.map.MapVO">
+		SELECT * FROM map_file
+	</select>
+	
+	
+	<select id="mapListcount" resultType="int" parameterType="com.longd.map.MapVO">
+		SELECT COUNT(*) FROM map;
+	</select>
+	
+	<select id="write" resultType="com.longd.map.MapVO" parameterType="com.longd.map.MapVO">
+		SELECT * FROM map WHERE map_no = #{map_no}
+	</select>
+	
+	<insert id="insertContent" parameterType="com.longd.map.MapVO"  >
+		INSERT INTO map_content (
+			 map_no
+			 , user_no
+			 , content
+			 , regdate
+			 ) 
+		VALUES (
+			#{map_no}
+			, #{user_no}
+			, #{content}
+			, NOW()
+		)
+		<selectKey keyProperty="content_no" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()			
+		</selectKey>
+	</insert>
+	
+	
+	<insert id="insertFile" parameterType="com.longd.map.MapVO"  >
+		INSERT INTO map_file (
+			filename_org
+			, filename_real
+			, map_no
+			, content_no
+			, user_no
+			, group_no
+		) VALUES (
+		 	#{filename_org}
+			, #{filename_real}
+			, #{map_no}
+			, #{content_no}
+			, #{user_no}
+			, #{group_no}
+		)
+	</insert>
+	
+	<select id="content" resultType="com.longd.map.MapVO" parameterType="com.longd.map.MapVO">
+		SELECT * FROM map_content WHERE map_no = #{map_no}
+	</select>
+	
+	<select id="contentFile" resultType="com.longd.map.MapVO" parameterType="com.longd.map.MapVO">
+		SELECT * FROM map_file WHERE map_no = #{map_no}
+	</select>
+	
+	<delete id="deleteFile">
+		DELETE FROM map_file WHERE filename_real = #{filename_real} AND file_no = #{file_no}
+	</delete>
+	
+	<update id="update">
+		UPDATE map_content SET content = #{content}, regdate = NOW() WHERE map_no = #{map_no}
+	</update>
+	
+	<update id="updateFile">
+		UPDATE map_file SET filename_org = #{filename_org}, filename_real = #{filename_real} WHERE map_no = #{map_no}
+	</update>
+	
+	
+	<insert id="insertMap" parameterType="com.longd.map.MapVO">
+		INSERT INTO map (
+			px
+			, py
+			, name
+			, displayName
+			, address
+			, creationTime
+			, user_no
+			, marker
+			, group_no
+		)
+		VALUES (
+			#{px}
+			, #{py}
+			, #{displayName}
+			, #{displayName}
+			, #{address}
+			, NOW()
+			, #{user_no}
+			, #{marker}
+			, #{group_no}
+		)
+		<selectKey keyProperty="map_no" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()			
+		</selectKey>
+	</insert>
+	
+	
+	<select id="checkMap" resultType="int" parameterType="com.longd.map.MapVO">
+		SELECT count(*) FROM map WHERE px = #{px} AND py = #{py} OR name LIKE '%${name}%'
+	</select>
+	
+</mapper>
