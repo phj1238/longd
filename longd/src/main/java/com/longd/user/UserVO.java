@@ -1,5 +1,7 @@
 package com.longd.user;
 
+import java.sql.Timestamp;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,4 +14,5 @@ public class UserVO {
 	private String id;
 	private String pwd;
 	private String nick;
+	private Timestamp regdate;
 }

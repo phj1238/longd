@@ -7,6 +7,28 @@
 		SELECT * FROM user WHERE id = #{id} AND pwd = #{pwd}
 	</select>
 	
+	<select id="checkId" parameterType="com.longd.user.UserVO" resultType="int">
+		SELECT count(*) FROM user WHERE id = #{id} 
+	</select>
+	
+	<select id="checkNick" parameterType="com.longd.user.UserVO" resultType="int">
+		SELECT count(*) FROM user WHERE nick = #{nick}
+	</select>
+	
+	<insert id="join" parameterType="com.longd.user.UserVO">
+		INSERT INTO user (
+			id
+			, pwd
+			, nick
+			, regdate
+		) VALUES (
+			#{id}
+			, md5(#{pwd})
+			, #{nick}
+			, NOW()
+		)
+	</insert>
+	
 <!-- 	
 	<insert id="insertSnsUser" parameterType="SnsUser">
 		insert into

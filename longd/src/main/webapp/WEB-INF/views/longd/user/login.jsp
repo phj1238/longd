@@ -41,6 +41,10 @@ $(function () {
 		
 	})
 })
+
+function goJoin() {
+	location.href = "/longd/user/join.do";
+}
 </script>
 
 
@@ -61,7 +65,7 @@ $(function () {
 						</div>
 						<div class="col-12">
 							<input type="submit" value="로그인" />
-							<input type="submit" value="회원가입" />
+							<input type="button" value="회원가입" onclick="goJoin()"/>
 							<br><br>
 							<div id="naverspan">
 								<img id="naverImg" src="/longd/img/naver.png"><input id="naverBtn" type="submit" value="네이버 아이디로 로그인" />

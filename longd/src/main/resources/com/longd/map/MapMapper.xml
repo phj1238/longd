@@ -121,4 +121,32 @@
 		SELECT count(*) FROM map WHERE px = #{px} AND py = #{py} OR name LIKE '%${name}%'
 	</select>
 	
+	<select id="maptotal" parameterType="com.longd.map.MapVO"  resultType="com.longd.map.MapVO">
+		SELECT count(*) AS totalcount, 
+			(SELECT count(*) FROM longd.map where address like '%강원%' ) AS dlist_1,
+			(SELECT count(*) FROM longd.map where address like '%경기%') AS dlist_2,
+			(SELECT count(*) FROM longd.map where address like '%경상남도%' or address like '%경남%') AS dlist_3,
+			(SELECT count(*) FROM longd.map where address like '%경상북도%' or address like '%경북%') AS dlist_4,
+			(SELECT count(*) FROM longd.map where address like '%광주광역시%' or address like '%광주%' ) AS dlist_5,
+			(SELECT count(*) FROM longd.map where address like '%대구광역시%' or address like '%대구%' ) AS dlist_6,
+			(SELECT count(*) FROM longd.map where address like '%대전광역시%' or address like '%대전%' ) AS dlist_7,
+			(SELECT count(*) FROM longd.map where address like '%부산광역시%' or address like '%부산%' ) AS dlist_8,
+			(SELECT count(*) FROM longd.map where address like '%서울특별시%' or address like '%서울%' ) AS dlist_9,
+			(SELECT count(*) FROM longd.map where address like '%인천광역시%' or address like '%인천%' ) AS dlist_10,
+			(SELECT count(*) FROM longd.map where address like '%세종특별자치시%' or address like '%세종%') AS dlist_11,
+			(SELECT count(*) FROM longd.map where address like '%울산광역시%' or address like '%울산%' ) AS dlist_12,
+			(SELECT count(*) FROM longd.map where address like '%전라남도%' or address like '%전남%' ) AS dlist_13,
+			(SELECT count(*) FROM longd.map where address like '%전라북도%' or address like '%전북%' ) AS dlist_14,
+			(SELECT count(*) FROM longd.map where address like '%제주특별자치도%' or address like '%제주%' ) AS dlist_15,
+			(SELECT count(*) FROM longd.map where address like '%충청남도%' or address like '%충남%' ) AS dlist_16,
+			(SELECT count(*) FROM longd.map where address like '%충청북도%' or address like '%충북%' ) AS dlist_17
+		FROM map
+		WHERE user_no = #{user_no}
+	</select>	
+	
+	<select id="dislist" resultType="com.longd.map.MapVO">
+		SELECT * FROM district
+	</select>
+	
+	
 </mapper>

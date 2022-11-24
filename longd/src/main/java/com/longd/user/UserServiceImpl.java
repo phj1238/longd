@@ -12,6 +12,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserMapper mapper;
 	
+	// 로그인 
 	@Override
 	public boolean loginCheck(UserVO vo, HttpSession sess) {
 		boolean r = false;
@@ -22,6 +23,24 @@ public class UserServiceImpl implements UserService {
 			sess.setAttribute("userInfo", userInfo);
 		}
 		return r;
+	}
+	
+	// 아이디 중복확인
+	@Override
+	public int checkId(String id) {
+		return mapper.checkId(id);
+	}
+	
+	// 닉네임 중복확인
+	@Override
+	public int checkNick(String nick) {
+		return mapper.checkNick(nick);
+	}
+
+	// 회원가입
+	@Override
+	public int join(UserVO vo) {
+		return mapper.join(vo);
 	}
 
 }
