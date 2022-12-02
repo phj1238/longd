@@ -1,5 +1,9 @@
 package com.longd.map;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,11 +21,56 @@ public class MapServiceImpl implements MapService {
 	MapMapper mapper;
 	
 	
-	// map marker 리스트 
+	// 그룹 전체 map marker 보여주기 
 	@Override
-	public Map list(MapVO vo) {
+	public Map list(MapVO vo)  {
+		
+		if(vo.getAddress() != null && !vo.getAddress().equals("")) {
+			System.out.println("!null@@@@@");
+			
+			if(vo.getAddress().equals("경남")) {
+				vo.setAddress2("경상남도");
+			}
+			if(vo.getAddress().equals("경북")) {
+				vo.setAddress2("경상북도");
+			}
+			if(vo.getAddress().equals("전남")) {
+				vo.setAddress2("전라남도");
+			}
+			if(vo.getAddress().equals("전북")) {
+				vo.setAddress2("전라북도");
+			}
+			if(vo.getAddress().equals("충북")) {
+				vo.setAddress2("충청북도");
+			}
+			if(vo.getAddress().equals("충남")) {
+				vo.setAddress2("충청남도");
+			}
+			
+		} else {
+			System.out.println("null@@@@@");
+		}
+		
 		List<MapVO> list = mapper.list(vo);
 		List<MapVO> filelist = mapper.fileList(vo);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		for (int i = 0; i < list.size(); i++) {
+			try {
+				list.get(i).setCreationtime(sdf.format(Long.parseLong(list.get(i).getCreationtime())));
+				System.out.println("time + "+ list.get(i).getCreationtime());
+			} catch (Exception e) {
+				try {
+					Date time = sdf.parse(list.get(i).getCreationtime());
+					list.get(i).setCreationtime(sdf.format(time));
+					System.out.println("time2222222222 + "+ list.get(i).getCreationtime());
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+					System.out.println("완전실패 +");
+				}
+			}
+		}
 		
 		Map map = new HashMap();
 		map.put("list", list);
@@ -124,6 +173,16 @@ public class MapServiceImpl implements MapService {
 		int count = mapper.checkMap(vo);
 		
 		return count;
+	}
+
+	@Override
+	public MapVO maptotal(MapVO vo) {
+		return mapper.maptotal(vo);
+	}
+
+	@Override
+	public List<MapVO> dislist(MapVO vo) {
+		return mapper.dislist(vo);
 	}
 
 

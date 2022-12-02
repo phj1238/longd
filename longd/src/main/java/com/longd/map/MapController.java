@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +45,7 @@ public class MapController {
 		HttpSession sess = req.getSession();
 		UserVO user = new UserVO();
 		user = (UserVO) sess.getAttribute("userInfo"); 
+		sess.setAttribute("group_no", vo.getGroup_no());
 		
 		if (user == null) {
 			model.addAttribute("msg","로그인이 필요합니다.");
@@ -107,6 +110,20 @@ public class MapController {
 		}
 		
 		return "redirect:/map/map.do";
+	}
+	
+	// map content 뷰페이지
+	@GetMapping("/view.do")
+	public String view (MapVO vo , Model model, @RequestParam int map_no) {
+		vo.setMap_no(map_no);
+		// 업체명, 주소
+		model.addAttribute("mlist", service.write(vo));
+		
+		// content 내용 , file  
+		model.addAttribute("clist", service.content(vo));
+		model.addAttribute("flist", service.contentFile(vo));
+		
+		return "/longd/content/view";
 	}
 	
 	// map content 수정 페이지
@@ -180,7 +197,7 @@ public class MapController {
 	}
 	
 	
-	// 로그인 후 - 지도 리스트
+	// 로그인 후 - 지도 리스트 목록
 	@RequestMapping("/mapList.do")
 	public String mapList(MapVO vo, Model model) {
 		model.addAttribute("list", service.mapList(vo));
@@ -193,6 +210,7 @@ public class MapController {
 		return "/longd/map/newMapwrite";
 	}
 	
+	//
 	@GetMapping("/searchMap.do")
 	public String seachMap (@RequestParam String sword, Model model) {
 		if (sword != null & !"".equals(sword)) {
@@ -236,6 +254,7 @@ public class MapController {
 		return "longd/map/newWrite";
 	}
 	
+	// 등록했는지 안했는지
 	@GetMapping("/checkMap.do")
 	@ResponseBody
 	public int checkMap (@RequestParam String px, @RequestParam String py, @RequestParam String name ,MapVO vo) {
@@ -308,4 +327,48 @@ public class MapController {
 		return "/longd/common/main";
 	}
 	
+	// 통계 페이지 - 리스트 
+	@GetMapping("/maptotal.do")
+	public String maptotal(MapVO vo, Model model, HttpServletRequest req) {
+		// 유저 번호 set
+		HttpSession sess = req.getSession();
+		UserVO user = new UserVO();
+		user = (UserVO) sess.getAttribute("userInfo"); 
+		
+		if (user == null) {
+			model.addAttribute("msg","로그인이 필요합니다.");
+			model.addAttribute("url", "/longd/user/loginPage.do");
+			return "/longd/common/alert";
+		}
+		
+		vo.setUser_no(user.getUser_no());
+		
+		model.addAttribute("dlist", service.maptotal(vo));
+		model.addAttribute("dislist", service.dislist(vo));
+		
+		return "/longd/map/maptotal";
+		
+	}
+	
+	// 지역별 지도 보여주기
+	@PostMapping("/countymap.do")
+	@ResponseBody
+	public Map countymap(MapVO vo, Model model, HttpServletRequest req
+			, @RequestParam String address) {
+		// 유저 번호 set
+		HttpSession sess = req.getSession();
+		UserVO user = new UserVO();
+		user = (UserVO) sess.getAttribute("userInfo"); 
+		
+		vo.setGroup_no((int)sess.getAttribute("group_no"));
+		System.out.println("group_no: "+ vo.getGroup_no());
+		vo.setUser_no(user.getUser_no());
+		
+		//model.addAttribute("list",service.list(vo));
+		
+		Map map = new HashMap();		
+		map.put("list", service.list(vo));
+		
+		return map;
+	}
 }

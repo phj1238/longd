@@ -1,45 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file ="../common/header.jsp" %>
+
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-
-<title>지도 목록</title>
+<title>그룹 리스트</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="/longd/css/main.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript">
+<script>
 $(function () {
-	var main = $("#home");
-	main.removeClass("active");
-	
-	var page = $("#mapPage");
-	page.addClass("active");
-	
-	$("#map").on('click', function () {
-		location.href = '/longd/map/map.do';
+	$('.group_name').click(function () {
+		var group_name = $(this).text();
+		console.log("group_name : " + group_name);
+		
 	})
-	
 })
-
-function pageBtn(p) {
-	console.log(p);
-	var nowPage = $(".nowPage"+p);
-	nowPage.addClass("active");
-}
 </script>
 
-<style type="text/css">
-#mapBtn {
-	margin: 0px 0px 0px 700px;
-}
-</style>
 
 
 </head>
@@ -48,27 +31,26 @@ function pageBtn(p) {
 		<!-- Contact -->
 		<article id="contact" class="panel">
 			<header>
-				<h2> 장소 목록</h2>
+				<h2>그룹 목록</h2>
 			</header>
 				<div>
 					<!-- row 시작 -->
 					<div class="row">
 						<div class="col-12">
-							<p> ${list.totalCount} 개 &nbsp; | &nbsp; ${ mapVO.page } &nbsp; / &nbsp; ${list.totalPage} 페이지</p>
 						</div>
 						<div class="col-12">
-						<table border="1">
+						<table border="1" id="grouplist">
 							<tr>
-								<th><h3>번호</h3></th>
-								<th><h3>상호명</h3></th>
-								<th><h3>주소</h3></th>
+								<th><h3></h3></th>
+								<th><h3 style="color: #fff;">그룹 이름</h3></th>
+								<th><h3 style="color: #fff;">만든 날짜</h3></th>
 							</tr>
 							
-							<c:forEach items="${list.list}" var="maplist" varStatus="status">
+							<c:forEach items="${glist.glist}" var="list" varStatus="status">
 								<tr>
-									<td>${list.totalCount-status.index-(mapVO.page-1)*mapVO.pageRow }</td>
-									<td>${maplist.name }</td>
-									<td>${maplist.address }</td>
+									<td>${glist.groupcount-status.index-(groupVO.page-1)*groupVO.pageRow }</td>
+									<td><a target="" href="/longd/map/map.do?group_no=${list.group_no }" class="group_name" >${list.group_name }</a></td>
+									<td><fmt:formatDate value="${list.group_member_regdate}" pattern="yyyy MM dd" /></td>
 								</tr>
 							</c:forEach>
 							
@@ -97,5 +79,7 @@ function pageBtn(p) {
 		</article>
 	</div>
 </div>
+
+
 </body>
 </html>

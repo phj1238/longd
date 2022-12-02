@@ -15,4 +15,7 @@ public class UserVO {
 	private String pwd;
 	private String nick;
 	private Timestamp regdate;
+	private int postcode;
+	private String addr1;
+	private String addr2;
 }

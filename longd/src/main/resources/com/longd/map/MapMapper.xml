@@ -6,18 +6,25 @@
 		SELECT *, 
 			(SELECT content FROM map_content WHERE map_no = a.map_no) AS content
 		FROM map as a
-		WHERE user_no = #{user_no}
+		WHERE user_no = #{user_no} AND group_no = #{group_no}
+		<if test="address != null and address != ''">
+			AND address LIKE '%${address}%'
+			<if test="address2 != null and address2 != ''">
+			or address LIKE '%${address2}%'
+			</if> 
+		</if>
 	</select>
 	
 	<select id="mapList" resultType="com.longd.map.MapVO" parameterType="com.longd.map.MapVO">
 		SELECT *, 
 			(SELECT content FROM map_content WHERE map_no = a.map_no) AS content
 		FROM map as a
+		WHERE user_no = #{user_no} AND group_no = #{group_no}
 		ORDER BY creationtime DESC
 		LIMIT  ${startIdx},${pageRow};
 	</select>
 	
-	<select id="fileList" parameterType="int" resultType="com.longd.map.MapVO">
+	<select id="fileList" parameterType="com.longd.map.MapVO" resultType="com.longd.map.MapVO">
 		SELECT * FROM map_file
 	</select>
 	
@@ -121,8 +128,9 @@
 		SELECT count(*) FROM map WHERE px = #{px} AND py = #{py} OR name LIKE '%${name}%'
 	</select>
 	
+	
 	<select id="maptotal" parameterType="com.longd.map.MapVO"  resultType="com.longd.map.MapVO">
-		SELECT count(*) AS totalcount, 
+		SELECT count(*) AS totalcount,
 			(SELECT count(*) FROM longd.map where address like '%강원%' ) AS dlist_1,
 			(SELECT count(*) FROM longd.map where address like '%경기%') AS dlist_2,
 			(SELECT count(*) FROM longd.map where address like '%경상남도%' or address like '%경남%') AS dlist_3,
@@ -144,7 +152,7 @@
 		WHERE user_no = #{user_no}
 	</select>	
 	
-	<select id="dislist" resultType="com.longd.map.MapVO">
+	<select id="dislist" resultType="com.longd.map.MapVO" >
 		SELECT * FROM district
 	</select>
 	

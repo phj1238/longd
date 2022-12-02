@@ -86,5 +86,4 @@ public class UserController {
 		return "/longd/common/alert";
 	}
 	
-	
 }

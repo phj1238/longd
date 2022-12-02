@@ -25,5 +25,9 @@ public interface MapService {
 
 	int checkMap(MapVO vo);
 
+	MapVO maptotal(MapVO vo);
+
+	List<MapVO> dislist(MapVO vo);
+
 
 }

@@ -33,6 +33,8 @@ public interface MapMapper {
 	int insertMap(MapVO vo);
 	
 	int checkMap(MapVO vo);
+	MapVO maptotal(MapVO vo);
+	List<MapVO> dislist(MapVO vo);
 
 
 }

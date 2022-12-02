@@ -21,11 +21,17 @@
 			, pwd
 			, nick
 			, regdate
+			, postcode
+			, addr1
+			, addr2
 		) VALUES (
 			#{id}
 			, md5(#{pwd})
 			, #{nick}
 			, NOW()
+			, #{postcode}
+			, #{addr1}
+			, #{addr2}
 		)
 	</insert>
 	

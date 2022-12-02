@@ -332,3 +332,119 @@ li a {
 .markerImgactive{
 	border : 5px solid red;
 }
+
+#group_name{
+	width: 70%;
+}
+
+#nick{
+	width: 70%;
+}
+
+.xImg{
+	width: 24px;
+	height: 24px;
+}
+
+.membernick{
+	margin: 5px;
+}
+
+.addr1{
+	padding: 5px;
+}
+
+a {
+	text-decoration: none;
+}
+tr th.county {
+	width: 10px;
+}
+.total {
+	text-align: center;
+}
+
+#maptable .countymapBtn {
+    padding: 3px 10px 5px 10px;
+    margin: 5px;
+    width: 80px;
+    height: 30px;
+    background: #aaa;
+}
+#maptable .countylistBtn {
+    padding: 3px 10px 5px 10px;
+    margin: 5px;
+    width: 80px;
+    height: 30px;
+    background: #aaa;
+}
+
+#maptable td input[type="button"]:hover{
+	background: #444444;
+}
+#maptable tr th:nth-child(1), th:nth-child(2){
+	width: 30%;
+}
+#maptable tr th:nth-child(3){
+	width: 60%;
+}
+#maptable tr th {
+	font-size: 17px;
+	background: #e5ad9c;
+    color: #fff;
+    border: 2px solid #ffffff;
+    padding:10px;
+}
+#maptable tr td{
+	text-align: center;
+	border-bottom: 0.1em solid rgb(0 0 0 / 4%);
+	border-top: 0.1em solid rgb(0 0 0 / 4%);
+	font-size: 14px;
+}
+
+#totlacount{
+	float: right;
+}
+#totlacount span {
+	font-weight: 500;
+    font-style: italic
+}
+
+#grouplist tr th:nth-child(2), th:nth-child(3){
+	width: 40%;
+	padding: 10px;
+    background: #e5ad9c;
+    color: #fff;
+    border: 2px solid #ffffff;
+}
+#grouplist tr th:nth-child(1){
+	width: 20%;
+	padding: 10px;
+    background: #e5ad9c;
+    color: #fff;
+    border: 2px solid #ffffff;
+}
+
+#grouplist tr td {
+	text-align: center;
+}
+
+#grouplist {
+	border: 1px thin #fff;
+}
+
+#countymaplist #countymaplistTable {
+	width: 300%;
+	margin: 10px;
+}
+#countymaplist #countymaplistTable tr th{
+	font-size: 15px;
+	background: #333333;
+    color: #fff;
+    padding:5px;
+}
+
+#countymaplist #countymaplistTable tr td{
+	font-size: 12px;
+	border: 0.1em solid rgb(0 0 0 / 4%);
+}

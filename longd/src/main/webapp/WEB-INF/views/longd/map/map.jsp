@@ -27,6 +27,10 @@ $(function () {
 	$("#mapList").on('click', function () {
 		location.href = '/longd/map/mapList.do';
 	})
+	
+	$("#maptotal").on('click', function () {
+		location.href = '/longd/map/maptotal.do';
+	})
 })
 </script> 
 
@@ -39,6 +43,7 @@ $(function () {
 				
 				<div class="col-12" id="maplistBtn">
 					<input type="button" id="mapList" value="목록보기" />
+					<input type="button" class="maptotal" id="maptotal" value="통계">
 				</div>
 			</article>
 		</div>
@@ -157,7 +162,7 @@ $(function () {
 
 	    for (var i = 0; i < markers.length; i++) {
 
-	        marker = markers[i]
+	        marker = markers[i];
 	        position = marker.getPosition();
 
 	        if (mapBounds.hasLatLng(position)) {
@@ -171,7 +176,6 @@ $(function () {
 	function showMarker(map, marker) {
 	    if (marker.setMap()) return;
 	    marker.setMap(map);
-	    
 	}
 
 	function hideMarker(map, marker) {
