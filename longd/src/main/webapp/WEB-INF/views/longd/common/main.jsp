@@ -25,12 +25,8 @@ $(function () {
 			<article id="home" class="panel intro">
 				<header>
 					<h1>박현정</h1>
-					<p>프로젝트 2</p>
+					<p>개인 프로젝트</p>
 				</header>
-				<a href="#work" class="jumplink pic">
-					<span class="arrow icon solid fa-chevron-right"><span>See my work</span></span>
-					<img src="images/me.jpg" alt="" />
-				</a>
 			</article>
 		</div>
 	</div>

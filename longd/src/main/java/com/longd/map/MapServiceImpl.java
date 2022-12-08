@@ -59,12 +59,10 @@ public class MapServiceImpl implements MapService {
 		for (int i = 0; i < list.size(); i++) {
 			try {
 				list.get(i).setCreationtime(sdf.format(Long.parseLong(list.get(i).getCreationtime())));
-				System.out.println("time + "+ list.get(i).getCreationtime());
 			} catch (Exception e) {
 				try {
 					Date time = sdf.parse(list.get(i).getCreationtime());
 					list.get(i).setCreationtime(sdf.format(time));
-					System.out.println("time2222222222 + "+ list.get(i).getCreationtime());
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 					System.out.println("완전실패 +");

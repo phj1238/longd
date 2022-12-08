@@ -21,7 +21,7 @@ $(function () {
 	var main = $("#home");
 	main.removeClass("active");
 	
-	var page = $("#mygroupPage");
+	var page = $("#mygroupListPage");
 	page.addClass("active");
 	
 	

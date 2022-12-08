@@ -71,9 +71,17 @@ $(function () {
 			},
 			dataType : 'json',
 			success : function (data) {
+				if(data.list.filelist.length !==0 ){
+					mapfile.length = 0;	
+					for (var i = 0; i < data.list.filelist.length; i++){
+						mapfile.push(data.list.filelist[i]);
+					}
+				}else {
+					mapfile.length = 0;	
+				}
+				
 				if (data.list.list.length !== 0 ){
 					mapdata.length = 0;
-					mapfile.length = 0;
 					
 					var html = '';
 						html += '<div id="countymaplist">';
@@ -84,10 +92,7 @@ $(function () {
 						html += '			<th>내용</th>';
 						html += '		</tr>';
 					for(var i = 0; i < data.list.list.length; i++){
-						
 						mapdata.push(data.list.list[i]);
-						mapfile.push(data.list.filelist[i]);
-						
 						html += '		<tr>';
 						html += '			<td><a onclick="changeMap('+i+');">'+data.list.list[i].name+'</a></td>';
 						html += '			<td>'+data.list.list[i].creationtime+'</td>';
@@ -119,12 +124,11 @@ function goMap() {
 
 function changeMap(no) {
 	
+	var imgsrc = '<%=request.getContextPath()%>';
 	var no = no;
 	var list = mapdata[no];
-	var flist = mapfile[no];
-	
-	console.log(list);
-	console.log(flist);
+	//console.log(mapdata.length); 
+	//console.log(mapfile.length);
 	
 	document.getElementById("map").style.display = "block";
 	
@@ -166,15 +170,18 @@ function changeMap(no) {
 			contentString += '	<p class="content">'+ list.content +'</p>';
 			contentString += '	<div class="contentfile">';
 			
-			addfile(list.map_no);
-			
-		function addfile(map_no) {
-			for (var j = 0; j< flist.lenght; j++){
-    			if (flist[j].map_no == map_no) {
-    				contentString += '<img class="contentImg" src="'+imgsrc+'/upload/'+flist[j].filename_real+'">';
+			//addfile(list.map_no);
+			if (mapfile.length > 0){
+				for (var j = 0; j< mapfile.length; j++){
+					if (mapfile[j].map_no == list.map_no) {
+						contentString += '<img class="contentImg" src="'+imgsrc+'/upload/'+mapfile[j].filename_real+'">';
+					} 
 				}
+			}else{
+				contentString += '<p>사진이 없습니다.</p>';
+				console.log("사진이 아예 없음");
 			}
-		}
+			
 			contentString += '	</div>';
 			contentString += '	<button class="writeBtn" onclick="editContent('+list.map_no+')">수정</button>'
 			contentString += '</div>';
@@ -195,6 +202,8 @@ function changeMap(no) {
 	});
 	
 }
+
+
 </script>
 
 <style type="text/css">
@@ -364,6 +373,7 @@ function changeMap(no) {
 				</article>
 			</div>
 		</div>
+		
 		
 <script type="text/javascript">
 //마커 배열로 

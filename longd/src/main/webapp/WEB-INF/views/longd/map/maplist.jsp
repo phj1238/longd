@@ -11,7 +11,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 
 <title>지도 목록</title>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="/longd/css/main.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
@@ -19,7 +18,7 @@ $(function () {
 	var main = $("#home");
 	main.removeClass("active");
 	
-	var page = $("#mapPage");
+	var page = $("#mapList");
 	page.addClass("active");
 	
 	$("#map").on('click', function () {
@@ -57,7 +56,7 @@ function pageBtn(p) {
 							<p> ${list.totalCount} 개 &nbsp; | &nbsp; ${ mapVO.page } &nbsp; / &nbsp; ${list.totalPage} 페이지</p>
 						</div>
 						<div class="col-12">
-						<table border="1">
+						<table border="1" id="mapListtable">
 							<tr>
 								<th><h3>번호</h3></th>
 								<th><h3>상호명</h3></th>
@@ -78,18 +77,20 @@ function pageBtn(p) {
 							<input type="button" id="map" value="지도보기">
 						</div>
 						<!-- 페이징 처리 -->
-						<div class="paging">
-	                        <ul>
-		                        <c:if test="${list.prev == true }">
-		                        	<li><a href="mapList.do?page=${list.startPage }&stype=${param.stype}&sword=${param.sword}"><</a></li>
-		                        </c:if>
-		                        <c:forEach var="p" begin="${list.startPage }" end="${list.endPage }">
-		                            <li><a href='mapList.do?page=${p }&stype=${param.stype}&sword=${param.sword}' <c:if test="${mapVO.page == p }">class='current'</c:if>>${p }</a></li>
-		                        </c:forEach>
-		                        <c:if test="${list.next == true }">
-		                        	<li><a href="mapList.do?page=${list.endPage+1 }&stype=${param.stype}&sword=${param.sword}">></a>
-		                        </c:if>
-	                        </ul> 
+						<div class="col-12">
+							<div class="paging">
+		                        <ul>
+			                        <c:if test="${list.prev == true }">
+			                        	<li><a href="mapList.do?page=${list.startPage }&stype=${param.stype}&sword=${param.sword}"><</a></li>
+			                        </c:if>
+			                        <c:forEach var="p" begin="${list.startPage }" end="${list.endPage }">
+			                            <li><a href='mapList.do?page=${p }&stype=${param.stype}&sword=${param.sword}' <c:if test="${mapVO.page == p }">class='current'</c:if>>${p }</a></li>
+			                        </c:forEach>
+			                        <c:if test="${list.next == true }">
+			                        	<li><a href="mapList.do?page=${list.endPage+1 }&stype=${param.stype}&sword=${param.sword}">></a>
+			                        </c:if>
+		                        </ul> 
+	                		</div>
                 		</div>
 					</div>
 					<!-- row 끝 -->

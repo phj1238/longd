@@ -38,6 +38,11 @@ public class MapController {
 	@Autowired
 	MapService service;
 	
+	 
+	@GetMapping("/write2.do")
+	public String write2 () {
+		return "/longd/map/write2";
+	}
 	// 네이버 지도 마커
 	@GetMapping("/map.do")
 	public String map(MapVO vo, Model model, HttpServletRequest req) {
@@ -45,7 +50,6 @@ public class MapController {
 		HttpSession sess = req.getSession();
 		UserVO user = new UserVO();
 		user = (UserVO) sess.getAttribute("userInfo"); 
-		sess.setAttribute("group_no", vo.getGroup_no());
 		
 		if (user == null) {
 			model.addAttribute("msg","로그인이 필요합니다.");
@@ -53,9 +57,14 @@ public class MapController {
 			return "/longd/common/alert";
 		}
 		
+		if (vo.getGroup_no() != 0 ) {
+			sess.setAttribute("group_no", vo.getGroup_no());
+		}
+		
 		vo.setUser_no(user.getUser_no());
-				
 		model.addAttribute("list",service.list(vo));
+		System.out.println("getAttribute : "+ sess.getAttribute("group_no"));
+
 		return "/longd/map/map";
 	}
 	
@@ -199,7 +208,14 @@ public class MapController {
 	
 	// 로그인 후 - 지도 리스트 목록
 	@RequestMapping("/mapList.do")
-	public String mapList(MapVO vo, Model model) {
+	public String mapList(MapVO vo, Model model, HttpServletRequest req) {
+		HttpSession sess = req.getSession();
+		UserVO user = new UserVO();
+		user = (UserVO) sess.getAttribute("userInfo");
+		
+		vo.setUser_no(user.getUser_no());
+		vo.setGroup_no((int) sess.getAttribute("group_no"));
+		
 		model.addAttribute("list", service.mapList(vo));
 		return "/longd/map/maplist";
 	}

@@ -24,13 +24,13 @@ $(function () {
 	var page = $("#mapPage");
 	page.addClass("active");
 	
-	$("#mapList").on('click', function () {
-		location.href = '/longd/map/mapList.do';
-	})
+	$("#mapListBtn").on('click', function () {
+		location.href = '/longd/map/mapList.do'; 
+	});
 	
 	$("#maptotal").on('click', function () {
 		location.href = '/longd/map/maptotal.do';
-	})
+	});
 })
 </script> 
 
@@ -42,7 +42,7 @@ $(function () {
 				<div id="map" style="width:800px;height:400px;"></div>
 				
 				<div class="col-12" id="maplistBtn">
-					<input type="button" id="mapList" value="목록보기" />
+					<input type="button" class="mapListBtn" id="mapListBtn" value="목록보기" > 
 					<input type="button" class="maptotal" id="maptotal" value="통계">
 				</div>
 			</article>

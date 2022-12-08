@@ -5,6 +5,40 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+@font-face {
+    font-family: 'Cafe24Ssurround';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Y_Spotlight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/Y_Spotlight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'KOFIHDrLEEJWTTF-B';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/KOFIHDrLEEJWTTF-B.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HSSaemaul-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/HSSaemaul-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'YdestreetB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/YdestreetB.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
 
 /* Nav */
@@ -52,6 +86,7 @@
 /* Main */
 
 	#main {
+		font-family: 'YdestreetB';
 		position: relative;
 		overflow: hidden;
 		width: 100%;
@@ -240,12 +275,14 @@ li a {
   text-transform: uppercase;
   display: inline-block;
   text-align: center;
-  padding: 2px 7px 5px 7px;
+  padding: 2px 7px 2px 7px;
   border: solid 1px #d7d7d7;
 }
 
 .paging{
-	margin-left: 16em; 
+	display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -447,4 +484,25 @@ tr th.county {
 #countymaplist #countymaplistTable tr td{
 	font-size: 12px;
 	border: 0.1em solid rgb(0 0 0 / 4%);
+}
+
+
+#mapListtable tr th{
+	font-size: 17px;
+    background: #e5ad9c;
+    color: #fff;
+    border: 2px solid #ffffff;
+    padding: 10px;
+}
+
+#mapListtable tr th:nth-child(1){
+	width: 10%;
+	padding: 10px;
+    background: #e5ad9c;
+    color: #fff;
+    border: 2px solid #ffffff;
+}
+
+#mapListtable tr td {
+	text-align: center;
 }

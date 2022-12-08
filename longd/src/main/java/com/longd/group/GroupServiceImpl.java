@@ -43,6 +43,7 @@ public class GroupServiceImpl implements GroupService {
 		map.put("prev", prev);
 		map.put("next", next);
 		map.put("glist", list);
+		System.out.println("groupcount : " + groupcount + " " + startPage + " " + endPage);
 		
 		return map;
 	}
